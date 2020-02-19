@@ -1,17 +1,15 @@
 class Orca < Formula
-  desc "Live Programming Environment"
-  homepage "http://wiki.xxiivv.com/orca"
-  url "https://github.com/hundredrabbits/Orca-c/archive/win32-bundle-test-1.tar.gz"
-  sha256 "9ed6c8651413a300cbcfb0d3d353c48fd7a472df896366ff25dd5dfa06fea7f4"
-  head "https://github.com/hundredrabbits/Orca-c.git"
+  desc "Live Programming Environment(C Port)"
+  homepage "https://wiki.xxiivv.com/site/orca.html"
+  head "git@github.com:hundredrabbits/Orca-c.git"
 
-  bottle :unneeded
-
-  depends_on "ncurses" => :build
-  depends_on "portmidi" => :build
+  depends_on "cmake" => :build
+  depends_on "portmidi"
+  uses_from_macos "ncurses"
 
   def install
-    bin.install "orca"
+    system "cmake", ".", *std_cmake_args
+    system "make", "install"
   end
 
   test do
